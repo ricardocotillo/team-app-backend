@@ -1,21 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
-from django.utils import timezone
 from .mixins import AutoCreatedUpdatedMixin
-
-
-class Profile(models.Model):
-    owner = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name='profile')
-    first_name = models.CharField(blank=True, max_length=50)
-    last_name = models.CharField(blank=True, max_length=50)
-    birth_date = models.DateField(null=True, blank=True)
-    picture = models.ImageField(blank=True, null=True)
-    phone = models.CharField(blank=True, max_length=12)
-
-    def __str__(self):
-        return self.owner.username
-
 
 class Sport(models.Model):
     name = models.CharField(max_length=100)
@@ -25,7 +9,7 @@ class Sport(models.Model):
 
 
 class Member(AutoCreatedUpdatedMixin):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey('authentication.User', on_delete=models.CASCADE)
     nickname = models.CharField(max_length=16)
     active = models.BooleanField()
     admin = models.BooleanField(default=False)

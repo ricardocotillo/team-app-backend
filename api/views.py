@@ -26,17 +26,6 @@ class PichangaViewSet(viewsets.ModelViewSet):
         member.save()
 
 
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = serializers.UserSerializer
-    queryset = models.User.objects.all()
-
-    def list(self, request, *args, **kwargs):
-        serializer_context = {
-            'request': request,
-        }
-        user = serializers.UserSerializer(self.request.user, context=serializer_context).data
-        return Response(user)
-
 class PictureView(generics.CreateAPIView):
     serializer_class = serializers.PictureSerializer
     queryset = models.Picture.objects.all()
@@ -46,22 +35,3 @@ class SportViewSet(generics.ListCreateAPIView):
     serializer_class = serializers.SportSerializer
     queryset = models.Sport.objects.all()
     permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
-
-
-class RegisterView(generics.CreateAPIView):
-    permission_classes = [permissions.AllowAny]
-    serializer_class = serializers.RegisterSerializer
-    queryset = models.Sport.objects.all()
-
-
-class ProfileViewSet(viewsets.ModelViewSet):
-    serializer_class = serializers.ProfileSerializer
-    queryset = models.Profile.objects.all()
-    permission_classes = [IsOwnerOrReadOnly]
-
-    def list(self, request, *args, **kwargs):
-        profile = models.Profile.objects.get(owner=self.request.user)
-        serializer_context = {
-            'request': request,
-        }
-        return Response(serializers.ProfileSerializer(profile, context=serializer_context).data)
