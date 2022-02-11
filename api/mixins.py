@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import ugettext as translate
+from django.utils.translation import gettext as translate
 from django.utils.timezone import now
 
 class AutoCreatedUpdatedMixin(models.Model):
