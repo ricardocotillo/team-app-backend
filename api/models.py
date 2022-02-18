@@ -7,22 +7,7 @@ class Sport(models.Model):
     def __str__(self):
         return self.name
 
-
-class Member(AutoCreatedUpdatedMixin):
-    user = models.ForeignKey('authentication.User', on_delete=models.CASCADE)
-    nickname = models.CharField(max_length=16)
-    active = models.BooleanField()
-    admin = models.BooleanField(default=False)
-    pichanga = models.ForeignKey(
-        'Pichanga', on_delete=models.CASCADE, related_name='members')
-
-    def __str__(self):
-        if self.nickname:
-            return self.nickname
-        return self.user.username
-
-
-class Pichanga(AutoCreatedUpdatedMixin):
+class Organization(AutoCreatedUpdatedMixin):
     name = models.CharField(max_length=200)
     logo = models.ImageField(blank=True, null=True)
     address = models.CharField(max_length=300)
@@ -33,10 +18,20 @@ class Pichanga(AutoCreatedUpdatedMixin):
         return self.name
 
 
+class Member(AutoCreatedUpdatedMixin):
+    user = models.ForeignKey('authentication.User', on_delete=models.CASCADE)
+    org = models.ForeignKey('Pichanga', on_delete=models.CASCADE, related_name='members')
+    nickname = models.CharField(max_length=16)
+    active = models.BooleanField(default=True)
+    admin = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.nickname
+
+
 class Picture(models.Model):
     image = models.ImageField(blank=True)
-    club = models.ForeignKey(
-        Pichanga, on_delete=models.CASCADE, related_name='pictures')
+    org = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name='pictures')
 
     def __str__(self):
         return self.image.name
