@@ -1,11 +1,14 @@
-from . import views
 from django.urls import path
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView, TokenObtainPairView
 
+from organization.views import OrganizationViewSet
+
+from . import views
+
 
 router = routers.SimpleRouter()
-router.register('organizations', views.OrganizationViewSet, basename='organizations')
+router.register('organizations', OrganizationViewSet, basename='organizations')
 
 urlpatterns = [
     path('pictures/', views.PictureView.as_view(), name='pictures'),
