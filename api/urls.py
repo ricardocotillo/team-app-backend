@@ -3,12 +3,14 @@ from rest_framework import routers
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView, TokenObtainPairView
 
 from organization.views import OrganizationViewSet
+from authentication.views import UserVieset
 
 from . import views
 
 
 router = routers.SimpleRouter()
-router.register('organizations', OrganizationViewSet, basename='organizations')
+router.register('organizations', OrganizationViewSet)
+router.register('users', UserVieset)
 
 urlpatterns = [
     path('pictures/', views.PictureView.as_view(), name='pictures'),

@@ -17,8 +17,8 @@ class Member(AutoCreatedUpdatedMixin):
 class Organization(AutoCreatedUpdatedMixin):
     name = models.CharField(max_length=200)
     logo = models.ImageField(blank=True, null=True)
-    address = models.CharField(max_length=300)
-    zip_code = models.CharField(max_length=5)
+    address = models.CharField(max_length=300, null=True)
+    zip_code = models.CharField(max_length=5, null=True)
     sport = models.ForeignKey('api.Sport', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):

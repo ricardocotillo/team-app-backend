@@ -1,11 +1,15 @@
-import imp
-from multiprocessing.spawn import import_main_path
+from pyexpat import model
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from .models import User
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'first_name', 'last_name',)
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
