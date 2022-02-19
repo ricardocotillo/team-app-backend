@@ -9,13 +9,6 @@ class PictureSerializer(serializers.ModelSerializer):
         fields = ['image', 'club', ]
         extra_kwargs = {'club': {'write_only': True}}
 
-
-class MemberSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Member
-        fields = '__all__'
-
-
 class SportSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Sport
