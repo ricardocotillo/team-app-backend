@@ -20,7 +20,7 @@ class Organization(AutoCreatedUpdatedMixin):
 
 class Member(AutoCreatedUpdatedMixin):
     user = models.ForeignKey('authentication.User', on_delete=models.CASCADE)
-    org = models.ForeignKey('Pichanga', on_delete=models.CASCADE, related_name='members')
+    org = models.ForeignKey('Organization', on_delete=models.CASCADE, related_name='members')
     nickname = models.CharField(max_length=16)
     active = models.BooleanField(default=True)
     admin = models.BooleanField(default=False)

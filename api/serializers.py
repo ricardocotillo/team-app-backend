@@ -1,6 +1,4 @@
-from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
-from rest_framework_simplejwt.tokens import RefreshToken
 from drf_base64.fields import Base64ImageField
 from . import models
 
@@ -33,14 +31,14 @@ class SportSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PichangaSerializer(serializers.ModelSerializer):
+class OrganizationSerializer(serializers.ModelSerializer):
     pictures = ImageUrlField(many=True, read_only=True)
     members = MemberSerializer(many=True, read_only=True)
     sport = SportSerializer()
     logo = Base64ImageField(required=False, max_length=None, use_url=True)
 
     class Meta:
-        model = models.Pichanga
+        model = models.Organization
         fields = '__all__'
 
     def create(self, validated_data):

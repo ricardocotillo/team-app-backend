@@ -1,28 +1,25 @@
 from rest_framework import generics, viewsets
 from rest_framework import permissions
-from rest_framework.response import Response
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from . import serializers
 from . import models
-from .permissions import IsMember, IsOwnerOrReadOnly
+from .permissions import IsMember
 
 
-class PichangaViewSet(viewsets.ModelViewSet):
-    serializer_class = serializers.PichangaSerializer
-    queryset = models.Pichanga.objects.all()
+class OrganizationViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.OrganizationSerializer
+    queryset = models.Organization.objects.all()
     permission_classes = [IsMember]
 
     def get_queryset(self):
         if self.request.user.is_superuser:
-            return models.Pichanga.objects.all()
+            return models.Organization.objects.all()
         members = models.Member.objects.filter(user=self.request.user)
-        return models.Pichanga.objects.filter(members__in=members)
+        return models.Organization.objects.filter(members__in=members)
 
     def perform_create(self, serializer):
-        pichanga = serializer.save()
+        org = serializer.save()
         user = self.request.user
-        member = models.Member(pichanga=pichanga, user=user,
-                               nickname=user.username, active=True, admin=True)
+        member = models.Member(org=org, user=user, nickname=user.username, active=True, admin=True)
         member.save()
 
 

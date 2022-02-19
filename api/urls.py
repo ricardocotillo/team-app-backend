@@ -5,7 +5,7 @@ from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView, To
 
 
 router = routers.SimpleRouter()
-router.register('pichangas', views.PichangaViewSet, basename='pichangas')
+router.register('organizations', views.OrganizationViewSet, basename='organizations')
 
 urlpatterns = [
     path('pictures/', views.PictureView.as_view(), name='pictures'),
