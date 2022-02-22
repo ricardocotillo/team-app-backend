@@ -13,7 +13,6 @@ class Member(AutoCreatedUpdatedMixin):
         self.admin = True
         self.save()
 
-# Create your models here.
 class Organization(AutoCreatedUpdatedMixin):
     name = models.CharField(max_length=200)
     logo = models.ImageField(blank=True, null=True)
