@@ -6,8 +6,8 @@ from . import models
 class PictureSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Picture
-        fields = ['image', 'club', ]
-        extra_kwargs = {'club': {'write_only': True}}
+        fields = ['id', 'image',]
+        # extra_kwargs = {'org': {'write_only': True}}
 
 class SportSerializer(serializers.ModelSerializer):
     class Meta:
